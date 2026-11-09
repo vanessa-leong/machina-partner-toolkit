@@ -1,10 +1,10 @@
 /* Studio shell. Layout: masthead bar, then a form column beside a live preview stage.
    One dark world per event (RAISE27 navy by default, MACHINA night when chosen). */
-@font-face { font-family: "MBlauer"; src: url("assets/fonts/Blauer_Nue_SemiBold-normal-600-100.ttf") format("truetype"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "MBlauer"; src: url("assets/fonts/Blauer_Nue-normal-400-100.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "MBricolage"; src: url("assets/fonts/BricolageGrotesque-Variable.ttf") format("truetype"); font-weight: 200 800; font-display: swap; }
-@font-face { font-family: "MGeist"; src: url("assets/fonts/Geist-Variable.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: "MGeistMono"; src: url("assets/fonts/GeistMono-VariableFont_wght.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "MBlauer"; src: url("Blauer_Nue_SemiBold-normal-600-100.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "MBlauer"; src: url("Blauer_Nue-normal-400-100.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "MBricolage"; src: url("BricolageGrotesque-Variable.ttf") format("truetype"); font-weight: 200 800; font-display: swap; }
+@font-face { font-family: "MGeist"; src: url("Geist-Variable.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "MGeistMono"; src: url("GeistMono-VariableFont_wght.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
 
 :root {
   color-scheme: dark;

@@ -76,7 +76,7 @@
     const p = id === "raise"
       ? Promise.all([loadImg("assets/raise/raise-summit-logo-white.svg"), loadImg("assets/raise/bg-indigo-glow-2.webp"), loadImg("assets/raise/bg-indigo-sweep.webp"), loadImg("assets/raise/bg-rays-dark-2.webp")])
           .then(([logo, a, b, c]) => ({ logo, bg: { a, b, c } }))
-      : Promise.all([loadImg("assets/machina/machina-wordmark-white.svg"), loadImg("assets/machina/black-material-texture.jpg")])
+      : Promise.all([loadImg("machina-wordmark-white.svg"), loadImg("black-material-texture.jpg")])
           .then(([logo, material]) => ({ logo, material, bg: {} }));
     ASSETS[id] = await p;
     return ASSETS[id];
@@ -242,9 +242,9 @@
   const b64 = (buf) => { let s = ""; const u = new Uint8Array(buf); for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
   async function exportBadgeSVG(asset) {
     const e = EV();
-    const logoFile = S.ev === "raise" ? "assets/raise/raise-summit-logo-white.svg" : "assets/machina/machina-wordmark-white.svg";
-    const fontFile = S.ev === "raise" ? "assets/fonts/PlusJakartaSans-VariableFont_wght.ttf" : "assets/fonts/BricolageGrotesque-Variable.ttf";
-    const [svgTxt, fontBuf, dateBuf] = await Promise.all([fetch(logoFile).then((r) => r.text()), fetch(fontFile).then((r) => r.arrayBuffer()), fetch("assets/fonts/Geist-Variable.ttf").then((r) => r.arrayBuffer())]);
+    const logoFile = S.ev === "raise" ? "assets/raise/raise-summit-logo-white.svg" : "machina-wordmark-white.svg";
+    const fontFile = S.ev === "raise" ? "PlusJakartaSans-VariableFont_wght.ttf" : "BricolageGrotesque-Variable.ttf";
+    const [svgTxt, fontBuf, dateBuf] = await Promise.all([fetch(logoFile).then((r) => r.text()), fetch(fontFile).then((r) => r.arrayBuffer()), fetch("Geist-Variable.ttf").then((r) => r.arrayBuffer())]);
     const logoUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgTxt)));
     const pl = S.logoProc ? S.logoProc.toDataURL("image/png") : null;
     const d = buildData(asset, "badge", "a");
@@ -316,7 +316,7 @@
 
   function header() {
     const ev = (S.view === "press" || S.view === "gallery") ? S.pressEv : (S.view === "studio" && S.ev ? S.ev : HOME_EV);
-    const logo = ev === "machina" ? "assets/machina/machina-wordmark-white.svg" : "assets/raise/raise-summit-logo-white.svg";
+    const logo = ev === "machina" ? "machina-wordmark-white.svg" : "assets/raise/raise-summit-logo-white.svg";
     const crumbs = [];
     if (S.view === "gallery") {
       crumbs.push(`<button class="pill" data-act="press" data-ev="${S.pressEv}">Press room</button>`);
@@ -377,7 +377,7 @@
           <span class="meta">${esc(ev("raise").dates)}<br>${esc(ev("raise").venue)}</span>
         </button>
         <button class="evcard machina" data-act="event" data-ev="machina" style="background-image:radial-gradient(700px 500px at 0 0, rgba(74,120,255,.45), transparent 70%), radial-gradient(700px 500px at 100% 100%, rgba(255,111,174,.38), transparent 70%)">
-          <img class="logo" src="assets/machina/machina-wordmark-white.svg" alt="MACHINA">
+          <img class="logo" src="machina-wordmark-white.svg" alt="MACHINA">
           <span class="tag">${esc(ev("machina").tagline.join(" "))}</span>
           <span class="meta">${esc(ev("machina").dates)}<br>${esc(ev("machina").venue)}</span>
         </button>
@@ -825,8 +825,8 @@
     const t = g.title.replace(/ Event Gallery$/, "");
     return `<div class="section"><header><span class="label">Event gallery</span><h2>${esc(t)} <span class="em">Event Gallery</span></h2><p class="muted" style="max-width:62ch">${esc(g.intro)}</p>${g.aftermovie && g.aftermovie.url ? `<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn ghost" href="${esc(g.aftermovie.url)}" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4.5 3v10l8.5-5z" fill="currentColor"/></svg> ${esc(g.aftermovie.label)}</a>${g.aftermovie.downloadUrl ? ` <a class="btn ghost" href="${esc(g.aftermovie.downloadUrl)}" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 2.5v8M4.5 7.5 8 11l3.5-3.5M3 13.5h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> ${esc(g.aftermovie.downloadLabel || "Download")}</a>` : ""}</div>` : ""}</header>
       <div class="toolbar"><span class="note">${g.photos.length} photos · tap Open for full size · ${esc(g.credit)}</span><button class="btn" data-act="gallery-zip">Download all (ZIP)</button></div>
-      <div class="gallery">${g.photos.map((p, i) => `<figure class="gal cv-wrap"><img src="assets/gallery/thumb/${p.file}" alt="${esc(p.caption)}" width="${p.w}" height="${p.h}" loading="lazy">
-        <button class="open" data-act="open-file" data-file="assets/gallery/full/${p.file}" data-title="${esc(t)} · Photo ${i + 1}" data-sub="${esc(p.credit)} · ${p.w} × ${p.h} px" aria-label="Open photo ${i + 1} full size">${ICON} Open</button>
+      <div class="gallery">${g.photos.map((p, i) => `<figure class="gal cv-wrap"><img src="thumb-${p.file}" alt="${esc(p.caption)}" width="${p.w}" height="${p.h}" loading="lazy">
+        <button class="open" data-act="open-file" data-file="${p.file}" data-title="${esc(t)} · Photo ${i + 1}" data-sub="${esc(p.credit)} · ${p.w} × ${p.h} px" aria-label="Open photo ${i + 1} full size">${ICON} Open</button>
         <figcaption><span class="muted">${esc(p.credit)}</span></figcaption></figure>`).join("")}</div></div>`;
   }
   function viewGallery() {
@@ -838,7 +838,7 @@
     const t = btn.textContent; btn.disabled = true; btn.textContent = "Preparing...";
     try {
       const zip = new window.JSZip();
-      for (const p of C.gallery.photos) zip.file(p.file, await fetch("assets/gallery/full/" + p.file).then((r) => r.blob()));
+      for (const p of C.gallery.photos) zip.file(p.file, await fetch("" + p.file).then((r) => r.blob()));
       zip.file("CREDITS.txt", C.gallery.photos.map((p) => `${p.file}: ${p.credit}`).join("\n"));
       await saveFile(C.gallery.title.replace(/\s+/g, "_") + ".zip", await zip.generateAsync({ type: "blob" }));
     } finally { btn.disabled = false; btn.textContent = t; }
